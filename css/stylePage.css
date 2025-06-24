@@ -1,0 +1,409 @@
+/* Modern CSS Variables */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --warning-gradient: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-strong: rgba(255, 255, 255, 0.15);
+  --text-primary: #2c3e50;
+  --text-light: rgba(255, 255, 255, 0.9);
+  --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.15);
+  --shadow-medium: 0 15px 35px rgba(31, 38, 135, 0.2);
+  --shadow-heavy: 0 20px 40px rgba(31, 38, 135, 0.3);
+  --border-radius: 16px;
+  --border-radius-sm: 12px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =================== */
+/* Basic layout & body */
+/* =================== */
+html, body {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 70px;
+  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-light);
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* =================== */
+/* Main container flex */
+/* =================== */
+.main-container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: calc(100vh - 60px); /* 60px = tinggi navbar */
+  overflow: hidden;
+}
+
+/* =================== */
+/* Modern Glassmorphism Navbar */
+/* =================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-top: none;
+  padding: 12px 24px;
+  transition: var(--transition);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-light);
+}
+
+.navbar:hover {
+  background: var(--glass-strong);
+  box-shadow: var(--shadow-medium);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(45deg, #fff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-link, 
+.nav-menu a {
+  padding: 10px 18px;
+  position: relative;
+  transition: var(--transition);
+  font-weight: 500;
+  color: var(--text-light);
+  text-decoration: none;
+  display: block;
+  border-radius: var(--border-radius-sm);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0 4px;
+}
+
+.nav-link::before,
+.nav-menu a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: var(--transition);
+}
+
+.nav-link:hover,
+.nav-menu a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-light);
+}
+
+.nav-link:hover::before,
+.nav-menu a:hover::before {
+  left: 100%;
+}
+
+.nav-link.active,
+.nav-menu a.active {
+  background: var(--accent-gradient);
+  color: white !important;
+  box-shadow: var(--shadow-medium);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-menu li {
+  margin: 0 4px;
+}
+
+/* =================== */
+/* Content containers */
+/* =================== */
+.main-container > .container-fluid.p-3 {
+  height: 100%;
+  padding: 0 !important; /* hilangkan padding agar fleksibel */
+  display: flex;
+  overflow: hidden;
+}
+
+.row.g-3 {
+  display: flex;
+  flex-wrap: nowrap; /* jangan wrap */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Kolom canvas dan control panel full tinggi */
+.col-lg-7, .col-lg-5 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 1rem;
+}
+
+/* Canvas container harus fleksibel dan tanpa scroll */
+.canvas-container {
+  flex: 1 1 auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:rgb(57, 57, 57);
+  border-radius: 0.375rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  color: #212529; /* teks gelap untuk area canvas */
+
+}
+
+/* Canvas responsive, full lebar container, auto tinggi */
+canvas#myCanvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 100%;
+  display: block;
+}
+
+/* Control panel dengan sticky dan scroll internal bila tinggi terlalu besar */
+.control-panel {
+  flex: 1 1 auto;
+  max-height: 100%;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 0.375rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  color: #212529; /* teks gelap */
+  padding: 1.5rem !important;
+  position: sticky;
+  top: 10px;
+  z-index: 1020;
+}
+
+/* Scrollbar style control panel */
+.control-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.control-panel::-webkit-scrollbar-thumb {
+  background-color: rgba(108, 117, 125, 0.5);
+  border-radius: 4px;
+}
+
+/* =================== */
+/* Direction buttons */
+/* =================== */
+.btn-direction {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background-color: #6c757d;
+  color: white;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-direction:hover {
+  background-color: #5a6268;
+}
+
+/* =================== */
+/* Keyboard shortcut display */
+/* =================== */
+.keyboard-shortcut {
+  display: inline-block;
+  background-color: #f1f3f5;
+  border-radius: .25rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.75rem;
+  color: #495057;
+  margin-right: 0.25rem;
+}
+
+/* =================== */
+/* Section headers */
+/* =================== */
+.section-header {
+  color: #6c757d;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* =================== */
+/* Active object button */
+/* =================== */
+.btn-object.active {
+  background-color: #6c757d;
+  color: white;
+}
+
+/* =================== */
+/* Content layout */
+/* =================== */
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #212529; /* default teks warna gelap di area konten */
+}
+
+.canvas-controls-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fixed-controls {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* =================== */
+/* Instruction area */
+/* =================== */
+.instructions-area {
+  overflow-y: auto;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  color: #212529;
+}
+
+/* =================== */
+/* 3D page specific */
+/* =================== */
+#canvas-container {
+  width: 100%;
+  height: 400px;
+  background-color: #000;
+  border-radius: 0.375rem;
+}
+
+/* =================== */
+/* Developer cards */
+/* =================== */
+/* Atur card developer agar semua tinggi sama */
+/* Container kolom jadi flex supaya card bisa stretch */
+.col-sm-12.col-md-6.col-lg-4 {
+  display: flex;
+  /* agar kolom bisa menyesuaikan tinggi card */
+}
+
+/* Card utama dengan flex column dan tinggi 100% */
+.developer-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* stretch sesuai kolom */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+  color: black;
+}
+
+.developer-card:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Gambar memenuhi lebar, tinggi maksimal, dan proporsional */
+.developer-card img.card-img-top {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+  flex-shrink: 0; /* gambar tidak ikut mengecil */
+}
+
+/* Body card fleksibel agar konten menyesuaikan */
+.developer-card .card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* teks di tengah vertikal */
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Judul dengan wrapping dan rapi */
+.developer-card .card-title {
+  margin-bottom: 0.5rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+/* Text muted untuk NIM */
+.developer-card .card-text.text-muted {
+  color: #6c757d;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Responsive: kecilkan gambar di layar kecil */
+@media (max-width: 576px) {
+  .developer-card img.card-img-top {
+    max-height: 150px;
+  }
+}
+
+
+/* =================== */
+/* Footer styling */
+/* =================== */
+footer {
+  background-color: #212529;
+  color: white;
+  padding: 0.5rem 0;
+  text-align: center;
+  flex-shrink: 0;
+}
